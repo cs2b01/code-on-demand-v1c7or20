@@ -10,6 +10,7 @@ Adding this constraint allows  our web application to:
 * JavaScript
 * Applets
 
+## Diagram Architecture:
 ![](cod3.png)
 
 ## Homework
@@ -28,7 +29,7 @@ Adding this constraint allows  our web application to:
 
  
 ## CODE Explanation
-### Add the script reference in HTML file
+#### Add the script reference in HTML file
 
 ``` html
 <head>
@@ -39,12 +40,12 @@ Adding this constraint allows  our web application to:
 </head>
 ```
 
-## Link the button event with a JS function 
+#### Link the button event with a JS function 
 ``` html
 <input type="button" value="login" onclick="getData()"/>
 ```
 
-## Create getData function
+#### Create getData function
 ``` javascript
 function getData(){
         $('#action').html("Authenticating...");
@@ -71,6 +72,31 @@ function getData(){
             }
         });
     }
+```
+
+
+#### Modify authenticate backend method
+``` python
+def authenticate():
+    #1. Collect data from request message
+    message = json.loads(request.data)
+    username = message['username']
+    password = message['password']
+    #2. Look in database if a user exists
+    db_session = db.getSession(engine)
+    try:
+        user = db_session.query(entities.User
+            ).filter(entities.User.username == username
+            ).filter(entities.User.password == password
+            ).one()
+        #3a. Return an authorized message to client
+        message = {'message': 'Authorized'}
+        return Response(message, status=200, mimetype='application/json')
+    except Exception:
+        #3b. Return an unauthorized message to client
+        message = {'message': 'Unauthorized'}
+        return Response(message, status=401, mimetype='application/json')
+
 ```
 
 ## Referencias.
