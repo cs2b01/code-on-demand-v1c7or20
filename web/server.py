@@ -63,7 +63,7 @@ def create_user():
 
 @app.route('/authenticate', methods = ["POST"])
 def authenticate():
-    time.sleep(8)
+    time.sleep(2)
     message = json.loads(request.data)
     username = message['username']
     password = message['password']
@@ -83,4 +83,4 @@ def authenticate():
 
 if __name__ == '__main__':
     app.secret_key = ".."
-    app.run(port=8080, threaded=True, host=('127.0.0.1'))
+    app.run(debug=True,port=8080, threaded=True, host=('127.0.0.1'))
