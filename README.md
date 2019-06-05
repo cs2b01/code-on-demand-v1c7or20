@@ -13,12 +13,6 @@ Adding this constraint allows  our web application to:
 ## Diagram Architecture:
 ![](cod3.png)
 
-## Homework
-* Add CSS Style to Login
-* Modify ```getData() ``` function to instead a text show a wheel image while loading.
-
-
-
 ## Advantages
 * Ability to add features to a deployed client.
 * Provides for improved extensibility and configurability, and better user-perceived performance and efficiency.
@@ -98,6 +92,11 @@ def authenticate():
         return Response(message, status=401, mimetype='application/json')
 
 ```
+
+## TODO
+* Add CSS Style to Login
+* Modify ```getData() ``` function to instead a text show a wheel image while loading.
+* Create chat.html and chat.js to allow users send a receive messages.
 
 ## Referencias.
 1.  [https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm]
