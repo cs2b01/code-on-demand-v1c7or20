@@ -18,6 +18,11 @@ def static_content(content):
     return render_template(content)
 
 
+@app.route('/chat')
+def chat():
+    return render_template('chat.html')
+
+
 @app.route('/users', methods = ['GET'])
 def get_users():
     session = db.getSession(engine)
