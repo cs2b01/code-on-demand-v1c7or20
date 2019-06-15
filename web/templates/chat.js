@@ -56,13 +56,25 @@ function whoami(){
                 //alert(JSON.stringify(response));
                 $('#show_messages').html("");
                 var i = 0;
-                $.each(response, function(){
+                if (response[i].Id == user_from_id){
+                    $.each(response, function(){
+                    f = '<div class="panel-body" align="right">';
+                    f = f + response[i].content;
+                    f = f + '</div>';
+                    i = i+1;
+                    $('#show_messages').append(f);
+                });
+                }
+                else {
+                    $.each(response, function(){
                     f = '<div class="panel-body">';
                     f = f + response[i].content;
                     f = f + '</div>';
                     i = i+1;
                     $('#show_messages').append(f);
                 });
+                }
+
             },
             error: function(response){
                 alert(JSON.stringify(response));
@@ -88,6 +100,7 @@ function whoami(){
             dataType:'json',
             success: function(response){
                 alert(JSON.stringify(response));
+                loadMessages(currentUserId,currentClickedId);
             },
             error: function(response){
                 alert(JSON.stringify(response));

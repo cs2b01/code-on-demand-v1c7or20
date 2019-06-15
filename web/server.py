@@ -102,12 +102,11 @@ def logout():
 @app.route('/messages/<user_from_id>/<user_to_id>', methods = ['GET'])
 def get_messages(user_from_id, user_to_id ):
     db_session = db.getSession(engine)
-    messages = db_session.query(entities.Message).filter(
-        entities.Message.user_from_id == user_from_id).filter(
-        entities.Message.user_to_id == user_to_id
-    )
+    messages1 = db_session.query(entities.Message).filter(
+        entities.Message.user_from_id == user_from_id or
+        entities.Message.user_from_id == user_to_id )
     data = []
-    for message in messages:
+    for message in messages1:
         data.append(message)
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
 
