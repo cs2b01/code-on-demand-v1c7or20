@@ -93,7 +93,4 @@ function whoami(){
                 alert(JSON.stringify(response));
             }
         });
-        loadMessages();
-
-
     }
