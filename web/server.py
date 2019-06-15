@@ -103,10 +103,16 @@ def logout():
 def get_messages(user_from_id, user_to_id ):
     db_session = db.getSession(engine)
     messages1 = db_session.query(entities.Message).filter(
-        entities.Message.user_from_id == user_from_id or
-        entities.Message.user_from_id == user_to_id )
+        entities.Message.user_from_id == user_from_id).filter(
+        entities.Message.user_to_id == user_to_id
+    )
+    messages2 = db_session.query(entities.Message).filter(
+        entities.Message.user_from_id == user_to_id).filter(
+        entities.Message.user_to_id == user_from_id
+    )
+    messages = messages1.union(messages2).order_by(entities.Message.id)
     data = []
-    for message in messages1:
+    for message in messages:
         data.append(message)
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
 

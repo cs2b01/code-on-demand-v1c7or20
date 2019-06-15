@@ -56,7 +56,7 @@ function whoami(){
                 //alert(JSON.stringify(response));
                 $('#show_messages').html("");
                 var i = 0;
-                if (response[i].Id == user_from_id){
+                if (response[i].user_from_id == user_from_id){
                     $.each(response, function(){
                     f = '<div class="panel-body" align="right">';
                     f = f + response[i].content;
