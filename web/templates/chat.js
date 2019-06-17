@@ -53,27 +53,20 @@ function whoami(){
             contentType: 'application/json',
             dataType:'json',
             success: function(response){
-                //alert(JSON.stringify(response));
+                alert(JSON.stringify(response));
                 $('#show_messages').html("");
                 var i = 0;
-                if (response[i].user_to_id == user_from_id){
-                    $.each(response, function(){
-                    f = '<div class="panel-body" align="right">';
+                $.each(response, function(){
+                    if (response[i]["user_from_id"] == user_to_id) {
+                         f = '<div class="p-3 mb-2 bg-light text-dark">';
+                    }
+                    else {
+                        f = '<div class="p-3 mb-2 bg-success text-white" align="right">';}
                     f = f + response[i].content;
                     f = f + '</div>';
                     i = i+1;
                     $('#show_messages').append(f);
                 });
-                }
-                if(response[i].user_to_id == user_to_id) {
-                    $.each(response, function(){
-                    f = '<div class="panel-body">';
-                    f = f + response[i].content;
-                    f = f + '</div>';
-                    i = i+1;
-                    $('#show_messages').append(f);
-                });
-                }
 
             },
             error: function(response){

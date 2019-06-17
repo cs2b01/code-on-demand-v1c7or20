@@ -81,6 +81,7 @@ def authenticate():
         message = {'message': 'Unauthorized'}
         return Response(message, status=401, mimetype='application/json')
 
+
 @app.route('/current', methods = ["GET"])
 def current_user():
     db_session = db.getSession(engine)
@@ -92,6 +93,7 @@ def current_user():
             cls=connector.AlchemyEncoder),
             mimetype='application/json'
         )
+
 
 @app.route('/logout', methods = ["GET"])
 def logout():
@@ -110,7 +112,7 @@ def get_messages(user_from_id, user_to_id ):
         entities.Message.user_from_id == user_to_id).filter(
         entities.Message.user_to_id == user_from_id
     )
-    messages = messages1.union(messages2)
+    messages = messages1.union(messages2).order_by(entities.Message.id)
     data = []
     for message in messages:
         data.append(message)
